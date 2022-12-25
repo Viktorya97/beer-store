@@ -1,0 +1,27 @@
+#beer-list {
+  .beer-item {
+    width: 100%;
+    max-height: 250px;
+    height: 100%;
+    text-align: center;
+
+    .beer-image {
+      max-width: 150px;
+      width: 100%;
+      max-height: 150px;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .beer-name {
+      font: normal 600 14px/19px Nunito Sans, sans-serif;
+      text-transform: uppercase;
+      color: #CBB27C;
+    }
+
+    .beer-price {
+      font: normal 600 12px/19px Nunito Sans, sans-serif;
+      color: black;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+#single-beer {
+  .beer-image-box {
+    max-height: 200px;
+    height: 100%;
+
+    .beer-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .unit {
+    font: normal 500 12px/19px Nunito Sans, sans-serif;
+    color: #CBB27C;
+    margin-right: 10px;
+  }
+
+  .alcohol {
+    font: normal 500 12px/19px Nunito Sans, sans-serif;
+    color: #CBB27C;
+  }
+
+  .name {
+    font: normal 600 16px/19px Nunito Sans, sans-serif;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .description {
+    font: normal 500 14px/19px Nunito Sans, sans-serif;
+    color: #000000;
+  }
+
+  .price {
+    font: normal 500 16px/19px Nunito Sans, sans-serif;
+    color: #CBB27C;
+  }
+
+  .button-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .input-box {
+      max-width: 25px;
+      width: 100%;
+    }
+  }
+}
