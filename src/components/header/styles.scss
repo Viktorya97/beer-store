@@ -1,0 +1,29 @@
+#header {
+  background-color: #1C1D1F;
+  padding: 20px;
+
+  .items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .right-items {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .beer-locations {
+        a {
+          font: normal 500 12px/19px Nunito Sans, sans-serif;
+          color: #FFFFFF;
+        }
+      }
+      .cart {
+        a {
+          font: normal 500 12px/19px Nunito Sans, sans-serif;
+          color: #CBB27C;
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ interface getBeersType {
 
 function* getBeers({ payload }: BeersAction) {
     try {
-        const response: getBeersType = yield axios.get(`https://api.punkapi.com/v2/beers?page=${payload.page}&per_page=${payload.per_page}`);
+        const response: getBeersType = yield axios.get(`${process.env.REACT_APP_PUNK_API_URL}?page=${payload.page}&per_page=${payload.per_page}`);
         if (response && response.status === 200) {
             yield put(getAllBeersSuccess(response.data));
         }
@@ -25,7 +25,7 @@ function* getBeers({ payload }: BeersAction) {
 
 function* getSingleBeer({ payload }: SingleBeerAction) {
     try {
-        const response: getBeersType = yield axios.get(`https://api.punkapi.com/v2/beers/${payload.id}`);
+        const response: getBeersType = yield axios.get(`${process.env.REACT_APP_PUNK_API_URL}/${payload.id}`);
         if (response && response.status === 200) {
             yield put(getSingleBeerSuccess(response.data[0]));
         }

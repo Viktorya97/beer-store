@@ -1,4 +1,9 @@
 #single-beer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
   .beer-image-box {
     max-height: 200px;
     height: 100%;

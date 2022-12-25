@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Grid, Box, IconButton} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import './styles.scss';
 
 interface productType {
     id: number,
@@ -19,18 +23,15 @@ function Cart() {
     }, [])
 
     const handleRemoveItem = (productId: number) => {
-
         let cartCopy: productType[] = [...cart]
-
         cartCopy = cartCopy.filter((item: productType) => item.id !== productId);
-
         setCart(cartCopy);
 
         let cartString = JSON.stringify(cartCopy)
         localStorage.setItem('cart', cartString)
     }
 
-    const handleEditItem = (productId: number, qty: number) => {
+    const handleEditItem = (productId: number, isIncrement: boolean) => {
 
         let cartCopy = [...cart]
 
@@ -38,7 +39,11 @@ function Cart() {
 
         if (!existentItem) return
 
-        existentItem.quantity += qty;
+        if (isIncrement) {
+            existentItem.quantity += 1;
+        } else {
+            existentItem.quantity -= 1;
+        }
 
         if (existentItem.quantity <= 0) {
             cartCopy = cartCopy.filter(item => item.id != productId)
@@ -51,16 +56,15 @@ function Cart() {
     }
 
     return (
-        <>
-            {
-                cart.length ? (
+        <Box id='cart'>
+            {cart.length ? (
                     cart.map((item: productType) => {
                         return (
                             <Grid container spacing={3} justifyContent='space-between' alignItems='center' key={item.id}>
                                 <Grid item xs={12} md={4}>
                                     <Grid container alignItems='center'>
                                         <Grid item xs={6}>
-                                            <img src={item.image} alt="beer-image"/>
+                                            <img src={item.image} alt="beer-image" className='image' />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <p className='beer-name'>
@@ -73,14 +77,36 @@ function Cart() {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12} md={8}>
-                                    <Grid container alignItems='center'>
-                                        <Grid item>{item.quantity}</Grid>
+                                    <Grid container justifyContent='space-around' alignItems='center'>
+                                        <Grid item>
+                                            <Box className='inc-dec-box'>
+                                                <Box>
+                                                    <IconButton
+                                                        className='decrement-btn'
+                                                        onClick={() => handleEditItem(item.id, false)}
+                                                    >
+                                                        <KeyboardArrowDownIcon />
+                                                    </IconButton>
+                                                </Box>
+                                                <Box>
+                                                    {item.quantity}
+                                                </Box>
+                                                <Box>
+                                                    <IconButton
+                                                        className="increment-btn"
+                                                        onClick={() => handleEditItem(item.id, true)}
+                                                    >
+                                                        <KeyboardArrowUpIcon />
+                                                    </IconButton>
+                                                </Box>
+                                            </Box>
+                                        </Grid>
                                         <Grid item>
                                             <IconButton onClick={() => handleRemoveItem(item.id)}>
-                                                Remove
+                                                <ClearIcon className='delete-icon' />
                                             </IconButton>
                                         </Grid>
-                                        <Grid item>beer price</Grid>
+                                        <Grid item>$4.75</Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -92,7 +118,7 @@ function Cart() {
                     </Box>
                 )
             }
-        </>
+        </Box>
     );
 }
 

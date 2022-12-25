@@ -6,6 +6,7 @@ import configureStore from "./store/index";
 import routes from "./routes";
 import Footer from "./components/footer";
 import './index.scss';
+import Header from "./components/header";
 
 const store = configureStore();
 const root = ReactDOM.createRoot(
@@ -15,6 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <Provider store={store}>
+          <Header />
           <BrowserRouter>
               <Routes>
                   {routes.map(({id, path, element}) => {
