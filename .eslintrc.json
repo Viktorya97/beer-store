@@ -1,0 +1,54 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "max-len": "off",
+        "no-mixed-spaces-and-tabs": "off",
+        "keyword-spacing": "off",
+        "comma-style": "off",
+        "no-unused-vars": "off",
+        "no-extra-bind": "off",
+        "no-implicit-globals": "off",
+        "prefer-promise-reject-errors": "off",
+        "no-console": "off",
+        "no-alert": "off",
+        "consistent-return": "off",
+        "no-else-return": "off",
+        "react/static-property-placement": "off",
+        "array-callback-return": "off",
+        "react/no-did-update-set-state": "off",
+        "radix": "off",
+        "camelcase": "off",
+        "no-shadow": "off",
+        "no-unused-expressions": "off",
+        "no-param-reassign": "off",
+        "no-nested-ternary": "off",
+        "no-confusing-arrow": "off",
+        "dot-notation": "off",
+        "one-var": "off",
+        "one-var-declaration-per-line": "off",
+        "no-use-before-define": "off",
+        "default-case": "off",
+        "react/no-array-index-key": "off",
+        "linebreak-style": "off"
+    }
+}
