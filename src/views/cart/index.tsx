@@ -5,15 +5,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import './styles.scss';
 
-interface productType {
-    id: number,
-    image: string,
-    name: string,
-    quantity: number,
-}
-
 function Cart() {
-    const [cart, setCart] = useState<productType[]>([]);
+    const [cart, setCart] = useState<CartItem[]>([]);
 
     useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem("cart") as string);
@@ -23,8 +16,8 @@ function Cart() {
     }, [])
 
     const handleRemoveItem = (productId: number) => {
-        let cartCopy: productType[] = [...cart]
-        cartCopy = cartCopy.filter((item: productType) => item.id !== productId);
+        let cartCopy: CartItem[] = [...cart]
+        cartCopy = cartCopy.filter((item: CartItem) => item.id !== productId);
         setCart(cartCopy);
 
         let cartString = JSON.stringify(cartCopy)
@@ -58,7 +51,7 @@ function Cart() {
     return (
         <Box id='cart'>
             {cart.length ? (
-                    cart.map((item: productType) => {
+                    cart.map((item: CartItem) => {
                         return (
                             <Grid container spacing={3} justifyContent='space-between' alignItems='center' key={item.id}>
                                 <Grid item xs={12} md={4}>

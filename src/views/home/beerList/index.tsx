@@ -5,7 +5,7 @@ import Item from './Item';
 import '../styles.scss';
 
 interface BeerListProps {
-    allBeers: [];
+    allBeers: BeerItem[];
 }
 
 function BeerList(props: BeerListProps) {

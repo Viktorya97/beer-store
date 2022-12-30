@@ -3,31 +3,7 @@ import {Box, Grid, Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 
 interface ItemProps {
-    allBeers: [];
-}
-
-interface beerItem {
-    abv: number,
-    attenuation_level: number,
-    boil_volume: object,
-    brewers_tips: string,
-    contributed_by: string,
-    description: string,
-    ebc: number,
-    first_brewed: string,
-    food_pairing: [],
-    ibu: number,
-    id: number,
-    image_url: string,
-    ingredients: object,
-    method: object,
-    name: string,
-    ph: number,
-    srm: number,
-    tagline: string,
-    target_fg: number,
-    target_og: number,
-    volume: object,
+    allBeers: BeerItem[];
 }
 
 function Item(props: ItemProps) {
@@ -41,7 +17,7 @@ function Item(props: ItemProps) {
     
     return (
         <>
-            {allBeers.map((item: beerItem) => {
+            {allBeers.map((item: BeerItem) => {
                 return (
                     <Grid item xs={2} sm={4} md={4} key={item.id}>
                         <Box className='beer-item'>

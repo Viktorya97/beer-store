@@ -46,7 +46,7 @@ function SingleBeer() {
     const { beer } = useSelector((state: any) => state.beers);
 
     const [beerCount, setBeerCount] = useState<number>(1);
-    const [cart, setCart] = useState<productItem[]>([])
+    const [cart, setCart] = useState<CartItem[]>([])
 
     useEffect(() => {
         const { id } = params;
@@ -65,10 +65,10 @@ function SingleBeer() {
         setBeerCount(Number(value));
     }
 
-    const handleAddToCart = (item: beerItem) => {
+    const handleAddToCart = (item: BeerItem) => {
         const cartCopy = [...cart];
         const {id} = item;
-        const existingItem: productItem | undefined = cartCopy.find((cartItem: productItem) => cartItem.id === id);
+        const existingItem: CartItem | undefined = cartCopy.find((cartItem: CartItem) => cartItem.id === id);
 
         if (existingItem) {
             existingItem.quantity += beerCount
