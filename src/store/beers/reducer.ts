@@ -1,6 +1,7 @@
 import {
   BeerByBrewedAction,
   BeersAction,
+  SingleBeerAction,
   GET_ALL_BEERS_ERROR,
   GET_ALL_BEERS_REQUEST,
   GET_ALL_BEERS_SUCCESS,
@@ -10,7 +11,9 @@ import {
   GET_SINGLE_BEER_ERROR,
   GET_SINGLE_BEER_REQUEST,
   GET_SINGLE_BEER_SUCCESS,
-  SingleBeerAction,
+  GET_SIMILAR_BEERS_REQUEST,
+  GET_SIMILAR_BEERS_SUCCESS,
+  GET_SIMILAR_BEERS_ERROR, SimilarBeersAction,
 } from './actionTypes'
 
 export interface BeersState {
@@ -23,9 +26,13 @@ export interface BeersState {
   isGetSingleBeerError: boolean
   getSingleBeerErrorMessage: string
   filteredByBrewedData: any
-  isGetFFilteredByBrewedSuccess: boolean
-  isGetFFilteredByBrewedError: boolean
-  getFFilteredByBrewedErrorMessage: string
+  isGetFilteredByBrewedSuccess: boolean
+  isGetFilteredByBrewedError: boolean
+  getFilteredByBrewedErrorMessage: string
+  similarBeers: {},
+  isGetSimilarBeersSuccess: boolean,
+  isGetSimilarBeersError: boolean,
+  getSimilarBeersErrorMessage: string,
 }
 
 const initialState: BeersState = {
@@ -38,14 +45,18 @@ const initialState: BeersState = {
   isGetSingleBeerError: false,
   getSingleBeerErrorMessage: '',
   filteredByBrewedData: [],
-  isGetFFilteredByBrewedSuccess: false,
-  isGetFFilteredByBrewedError: false,
-  getFFilteredByBrewedErrorMessage: '',
+  isGetFilteredByBrewedSuccess: false,
+  isGetFilteredByBrewedError: false,
+  getFilteredByBrewedErrorMessage: '',
+  similarBeers: {},
+  isGetSimilarBeersSuccess: false,
+  isGetSimilarBeersError: false,
+  getSimilarBeersErrorMessage: '',
 }
 
 export default function beersReducer(
   state: BeersState = initialState,
-  action: BeersAction | SingleBeerAction | BeerByBrewedAction, // TODO ?
+  action: BeersAction | SingleBeerAction | BeerByBrewedAction | SimilarBeersAction, // TODO ?
 ): BeersState {
   switch (action.type) {
     case GET_ALL_BEERS_REQUEST:
@@ -92,21 +103,41 @@ export default function beersReducer(
       return {
         ...state,
         filteredByBrewedData: [],
-        isGetFFilteredByBrewedSuccess: false,
-        isGetFFilteredByBrewedError: false,
-        getFFilteredByBrewedErrorMessage: '',
+        isGetFilteredByBrewedSuccess: false,
+        isGetFilteredByBrewedError: false,
+        getFilteredByBrewedErrorMessage: '',
       }
     case GET_BEERS_BY_BREWED_SUCCESS:
       return {
         ...state,
         filteredByBrewedData: action.payload,
-        isGetFFilteredByBrewedSuccess: true,
+        isGetFilteredByBrewedSuccess: true,
       }
     case GET_BEERS_BY_BREWED_ERROR:
       return {
         ...state,
-        isGetFFilteredByBrewedError: true,
-        getFFilteredByBrewedErrorMessage: '',
+        isGetFilteredByBrewedError: true,
+        getFilteredByBrewedErrorMessage: '',
+      }
+    case GET_SIMILAR_BEERS_REQUEST:
+      return {
+        ...state,
+        similarBeers: {},
+        isGetSimilarBeersSuccess: false,
+        isGetSimilarBeersError: false,
+        getSimilarBeersErrorMessage: '',
+      }
+    case GET_SIMILAR_BEERS_SUCCESS:
+      return {
+        ...state,
+        similarBeers: action.payload,
+        isGetSimilarBeersSuccess: true,
+      }
+    case GET_SIMILAR_BEERS_ERROR:
+      return {
+        ...state,
+        isGetSimilarBeersError: true,
+        getSimilarBeersErrorMessage: '',
       }
 
     default: {

@@ -37,19 +37,37 @@ export interface GetSingleBeerErrorAction {
 export const GET_BEERS_BY_BREWED_REQUEST = 'GET_BEERS_BY_BREWED_REQUEST'
 export interface GetBeersByBrewedRequestAction {
   type: typeof GET_BEERS_BY_BREWED_REQUEST
-  payload: { brewedType: string; date: string }
+  payload: { brewed_before: Date, brewed_after: Date }
 }
 
 export const GET_BEERS_BY_BREWED_SUCCESS = 'GET_BEERS_BY_BREWED_SUCCESS'
 export interface GetBeersByBrewedSuccessAction {
   type: typeof GET_BEERS_BY_BREWED_SUCCESS
-  payload: { brewedType: string; date: string }
+  payload: { brewed_before: Date, brewed_after: Date }
 }
 
 export const GET_BEERS_BY_BREWED_ERROR = 'GET_BEERS_BY_BREWED_ERROR'
 export interface GetBeersByBrewedErrorAction {
   type: typeof GET_BEERS_BY_BREWED_ERROR
-  payload: { brewedType: string; date: string }
+  payload: { brewed_before: Date, brewed_after: Date }
+}
+
+export const GET_SIMILAR_BEERS_REQUEST = 'GET_SIMILAR_BEERS_REQUEST'
+export interface GetSimilarBeersRequestAction {
+  type: typeof GET_SIMILAR_BEERS_REQUEST
+  payload: { abv_gt: number, abv_lt: number, ibu_gt: number, ibu_lt: number }
+}
+
+export const GET_SIMILAR_BEERS_SUCCESS = 'GET_SIMILAR_BEERS_SUCCESS'
+export interface GetSimilarBeersSuccessAction {
+  type: typeof GET_SIMILAR_BEERS_SUCCESS
+  payload: { abv_gt: number, abv_lt: number, ibu_gt: number, ibu_lt: number }
+}
+
+export const GET_SIMILAR_BEERS_ERROR = 'GET_SIMILAR_BEERS_ERROR'
+export interface GetSimilarBeersErrorAction {
+  type: typeof GET_SIMILAR_BEERS_ERROR
+  payload: { abv_gt: number, abv_lt: number, ibu_gt: number, ibu_lt: number }
 }
 
 export type BeersAction =
@@ -66,3 +84,8 @@ export type BeerByBrewedAction =
   | GetBeersByBrewedRequestAction
   | GetBeersByBrewedSuccessAction
   | GetBeersByBrewedErrorAction
+
+export type SimilarBeersAction =
+  | GetSimilarBeersRequestAction
+  | GetSimilarBeersSuccessAction
+  | GetSimilarBeersErrorAction
