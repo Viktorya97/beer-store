@@ -1,29 +1,89 @@
+@import "../../styles/variables";
+
 #header {
   background-color: #1C1D1F;
-  padding: 20px;
 
-  .items {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .header-items {
+    border-bottom: 1px solid $gray;
 
-    .right-items {
+    .items {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      padding: 16px 0;
 
-      .beer-locations {
+      .left-items {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        svg {
+          color: $white;
+        }
+      }
+
+      .right-items {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
         a {
+          text-decoration: none;
+        }
+
+        .beer-locations {
+          display: flex;
+          align-items: center;
+          gap: 5px;
           font: normal 500 12px/19px Nunito Sans, sans-serif;
           color: #FFFFFF;
         }
-      }
-      .cart {
-        a {
+
+        .cart {
+          display: flex;
+          align-items: center;
+          gap: 5px;
           font: normal 500 12px/19px Nunito Sans, sans-serif;
           color: #CBB27C;
+
+          a {
+            text-decoration: none;
+          }
         }
       }
+    }
+  }
+
+  .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    justify-content: end;
+    margin-top: 40px;
+
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  .title-box {
+    text-align: center;
+    margin-top: 60px;
+    padding-bottom: 60px;
+
+    .title {
+      font: normal 600 24px/36px Nunito sans, sans-serif;
+      color: $main-color;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font: normal 600 40px/60px Nunito sans, sans-serif;
+      color: $white;
+      margin: 0;
     }
   }
 }

@@ -1,5 +1,85 @@
+@import "../../styles/variables";
+
 #footer {
   background-color: #1C1D1F;
-  max-height: 400px;
   height: 100%;
+
+  .content {
+    border-bottom: 1px solid $gray;
+    padding: 50px 0;
+
+    .footer-list {
+      .title {
+        color: $white;
+        text-transform: uppercase;
+        font: normal 600 24px/36px Nunito Sans, sans-serif;
+      }
+
+      .list-items {
+        padding-left: 0;
+
+        li {
+          list-style-type: none;
+          margin-bottom: 10px;
+
+          a {
+            text-decoration: none;
+            color: $main-color;
+            font: normal 500 16px/20px Nunito Sans, sans-serif;
+          }
+        }
+      }
+    }
+
+    .contact-detail {
+      width: 100%;
+
+      .title {
+        color: $white;
+        text-transform: uppercase;
+        font: normal 600 24px/36px Nunito Sans, sans-serif;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .detail {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .info-text {
+            color: $white;
+            font: normal 500 16px/20px Nunito Sans, sans-serif;
+            margin: 0;
+          }
+        }
+
+        .icon-box {
+          height: 20px;
+
+          svg {
+            color: $white;
+            height: 20px;
+            width: 20px;
+          }
+        }
+
+      }
+    }
+  }
+
+  .copyWrite-text {
+    color: $white;
+    font: normal 500 14px/21px Nunito Sans, sans-serif;
+    margin: 0;
+    padding: 20px 0;
+
+    span {
+      color: $gray;
+    }
+  }
 }
