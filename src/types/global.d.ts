@@ -38,4 +38,27 @@ declare global {
     path: string
     element: ReactElement
   }
+
+  interface SimilarBeersParams {
+    abv_gt: number
+    abv_lt: number
+    ibu_gt: number
+    ibu_lt: number
+    id: number
+    data: BeerItem[]
+  }
+
+  interface AllBeersParams {
+    page: number
+    per_page: number
+  }
+
+  interface BeersByBrewedParams {
+    brewed_before: Date | string
+    brewed_after: Date | string
+  }
+
+  interface SingleBeerParams {
+    id: number
+  }
 }

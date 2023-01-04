@@ -18,7 +18,7 @@ import {
 } from './actionTypes'
 
 export interface BeersState {
-  allBeers: any
+  allBeers: BeerItem[] | AllBeersParams
   isGetAllBeersSuccess: boolean
   isGetAllBeersError: boolean
   getAllBeersErrorMessage: string
@@ -26,11 +26,11 @@ export interface BeersState {
   isGetSingleBeerSuccess: boolean
   isGetSingleBeerError: boolean
   getSingleBeerErrorMessage: string
-  filteredByBrewedData: any
+  filteredByBrewedData: BeerItem[] | BeersByBrewedParams
   isGetFilteredByBrewedSuccess: boolean
   isGetFilteredByBrewedError: boolean
   getFilteredByBrewedErrorMessage: string
-  similarBeers: any
+  similarBeers: object
   isGetSimilarBeersSuccess: boolean
   isGetSimilarBeersError: boolean
   getSimilarBeersErrorMessage: string
@@ -49,7 +49,7 @@ const initialState: BeersState = {
   isGetFilteredByBrewedSuccess: false,
   isGetFilteredByBrewedError: false,
   getFilteredByBrewedErrorMessage: '',
-  similarBeers: [],
+  similarBeers: {},
   isGetSimilarBeersSuccess: false,
   isGetSimilarBeersError: false,
   getSimilarBeersErrorMessage: '',
@@ -123,7 +123,6 @@ export default function beersReducer(
     case GET_SIMILAR_BEERS_REQUEST:
       return {
         ...state,
-        similarBeers: [],
         isGetSimilarBeersSuccess: false,
         isGetSimilarBeersError: false,
         getSimilarBeersErrorMessage: '',
@@ -131,7 +130,10 @@ export default function beersReducer(
     case GET_SIMILAR_BEERS_SUCCESS:
       return {
         ...state,
-        similarBeers: action.payload,
+        similarBeers: {
+          ...state.similarBeers,
+          [action.payload.id]: action.payload.data,
+        },
         isGetSimilarBeersSuccess: true,
       }
     case GET_SIMILAR_BEERS_ERROR:

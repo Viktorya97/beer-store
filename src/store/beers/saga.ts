@@ -32,8 +32,11 @@ interface getBeersType {
 
 function* getBeers({ payload }: BeersAction) {
   try {
+    const { page, per_page } = payload
+    // @ts-ignore
+    const query = new URLSearchParams({ page, per_page }).toString()
     const response: getBeersType = yield axiosInstance.get(
-      `${process.env.REACT_APP_PUNK_API_URL}?page=${payload.page}&per_page=${payload.per_page}`,
+      `${process.env.REACT_APP_PUNK_API_URL}?${query}`,
     )
     if (response && response.status === 200) {
       yield put(getAllBeersSuccess(response.data))
@@ -59,8 +62,10 @@ function* getSingleBeer({ payload }: SingleBeerAction) {
 function* getBeersByBrewed({ payload }: BeerByBrewedAction) {
   try {
     const { brewed_before, brewed_after } = payload
+    // @ts-ignore
+    const query = new URLSearchParams({ brewed_before, brewed_after }).toString()
     const response: getBeersType = yield axiosInstance.get(
-      `${process.env.REACT_APP_PUNK_API_URL}?brewed_before=${brewed_before}&brewed_after=${brewed_after}`,
+      `${process.env.REACT_APP_PUNK_API_URL}?${query}`,
     )
     if (response && response.status === 200) {
       yield put(getBeersByBrewedSuccess(response.data))
@@ -73,11 +78,15 @@ function* getBeersByBrewed({ payload }: BeerByBrewedAction) {
 function* getSimilarBeers({ payload }: SimilarBeersAction) {
   try {
     const { abv_gt, abv_lt, ibu_gt, ibu_lt } = payload
+
+    // @ts-ignore
+    const query = new URLSearchParams({ abv_gt, abv_lt, ibu_gt, ibu_lt }).toString()
     const response: getBeersType = yield axiosInstance.get(
-      `${process.env.REACT_APP_PUNK_API_URL}?abv_gt=${abv_gt}&abv_lt=${abv_lt}&ibu_gt=${ibu_gt}&ibu_lt=${ibu_lt}`,
+      `${process.env.REACT_APP_PUNK_API_URL}?${query}`,
     )
     if (response && response.status === 200) {
-      yield put(getSimilarBeersSuccess(response.data))
+      // @ts-ignore
+      yield put(getSimilarBeersSuccess({ id: payload.id, data: response.data }))
     }
   } catch (error: any) {
     yield put(getSimilarBeersError(error.response.data))

@@ -8,12 +8,13 @@ function AppRoutes() {
 
   useEffect(() => {
     generateBearerToken()
+    const expiredDate = getRandom()
 
     const interval = setInterval(() => {
       localStorage.removeItem('token')
       navigate('/')
       generateBearerToken()
-    }, 300000)
+    }, expiredDate)
 
     return () => clearInterval(interval)
   }, [])
@@ -21,6 +22,13 @@ function AppRoutes() {
   const generateBearerToken = () => {
     const generatedToken = generateToken()
     localStorage.setItem('token', generatedToken)
+  }
+
+  const getRandom = (min = 5, max = 10) => {
+    const floatRandom = Math.random()
+    const difference = (max - min) * 60000
+    const random = Math.round(difference * floatRandom)
+    return random + min
   }
 
   return (

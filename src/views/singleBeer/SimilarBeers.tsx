@@ -3,7 +3,13 @@ import { Box, Grid } from '@mui/material'
 import CustomButton from '../../components/button'
 import { useNavigate } from 'react-router-dom'
 
-function SimilarBeers(similarItems: any) {
+interface SimilarBeersProps {
+  similarItems: BeerItem[]
+}
+
+function SimilarBeers(props: SimilarBeersProps) {
+  const { similarItems } = props
+
   const navigate = useNavigate()
 
   const handleClickBeer = (beerId: number) => {
@@ -14,7 +20,7 @@ function SimilarBeers(similarItems: any) {
     <Box className='similar-beers-box'>
       <p className='title'>Similar products</p>
       <Grid container spacing={{ xs: 2, md: 3 }} wrap='wrap'>
-        {similarItems?.similarItems?.map((item: BeerItem) => {
+        {similarItems?.map((item: BeerItem) => {
           return (
             <Grid item xs={12} sm={4} md={4} key={item.id}>
               <Box className='view-item-box'>

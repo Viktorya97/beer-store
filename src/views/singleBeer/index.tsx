@@ -64,8 +64,6 @@ function SingleBeer() {
 
   useEffect(() => {
     if (prevIsGetSingleBeerSuccess === false && isGetSingleBeerSuccess) {
-      const { id } = params
-
       if (Object.keys(beer).length) {
         const abv_gt = beer.abv - 1
         const abv_lt = beer.abv + 1
@@ -77,10 +75,12 @@ function SingleBeer() {
           abv_lt: abv_lt >= 0 ? abv_lt : 0,
           ibu_gt: ibu_gt >= 0 ? ibu_gt : 0,
           ibu_lt: ibu_lt >= 0 ? ibu_lt : 0,
-          id,
+          id: beer.id,
         }
 
-        dispatch(getSimilarBeersRequest(data))
+        if (!similarBeers[beer.id]) {
+          dispatch(getSimilarBeersRequest(data))
+        }
       }
     } else if (prevIsGetSingleBeerError === false && isGetSingleBeerError) {
       toast.error(getSingleBeerErrorMessage)
@@ -164,7 +164,9 @@ function SingleBeer() {
           </Grid>
         </Grid>
 
-        {similarBeers?.length ? <SimilarBeers similarItems={similarBeers} /> : null}
+        {Object.keys(similarBeers)?.length && similarBeers[beer.id]?.length ? (
+          <SimilarBeers similarItems={similarBeers[beer.id]} />
+        ) : null}
       </Box>
     </Container>
   )
