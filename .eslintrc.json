@@ -2,23 +2,27 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
     ],
     "overrides": [
     ],
-    "parser": "@typescript-eslint/parser",
+    "parser": "typescript-eslint-parser",
     "parserOptions": {
         "ecmaVersion": 2021,
         "sourceType": "module"
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "react-hooks",
+        "prettier"
     ],
     "rules": {
         "max-len": "off",
@@ -49,6 +53,15 @@
         "no-use-before-define": "off",
         "default-case": "off",
         "react/no-array-index-key": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "react/react-in-jsx-scope": "off",
+        "spaced-comment": "error",
+        "quotes": ["error", "single"],
+        "no-duplicate-imports": "error"
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
     }
 }

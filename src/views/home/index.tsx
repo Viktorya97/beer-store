@@ -1,26 +1,65 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getAllBeersRequest} from '../../store/beers/actionCreators';
-import {Box} from '@mui/material';
-import BeerList from './beerList';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllBeersRequest } from '../../store/beers/actionCreators'
+import { Box } from '@mui/material'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { toast } from 'react-toastify'
+import { usePrevious } from '../../hooks/usePrevious'
+import BeerList from './beerList'
+import TopBar from './topBar'
+import Loading from '../../components/loading'
 
 function Home() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-    const [page, setPage] = useState<number>(1);
-    const [offset, setOffset] = useState<number>(18);
+  const [page, setPage] = useState<number>(1)
+  const [beers, setBeers] = useState<BeerItem[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [isFiltered, setIsFiltered] = useState<boolean>(false)
 
-    const { allBeers } = useSelector((state: any) => state.beers);
+  const { allBeers, isGetAllBeersSuccess, isGetAllBeersError, getAllBeersErrorMessage } =
+    useSelector((state: any) => state.beers)
 
-    useEffect(() => {
-        dispatch(getAllBeersRequest({page, per_page: offset}))
-    }, []);
+  const prevIsGetAllBeersSuccess = usePrevious(isGetAllBeersSuccess)
+  const prevIsGetAllBeersError = usePrevious(isGetAllBeersError)
 
-    return (
-        <Box>
-            <BeerList allBeers={allBeers} />
-        </Box>
-    )
+  useEffect(() => {
+    dispatch(getAllBeersRequest({ page, per_page: 18 }))
+  }, [])
+
+  useEffect(() => {
+    if (prevIsGetAllBeersSuccess === false && isGetAllBeersSuccess) {
+      const pageCount = page === 1 ? 2 : 1
+      setPage((prev) => prev + pageCount)
+      setBeers((prevState: BeerItem[]) => [...prevState, ...allBeers])
+      setIsFiltered(false)
+      setLoading(false)
+    } else if (prevIsGetAllBeersError === false && isGetAllBeersError) {
+      setLoading(false)
+      toast.error(getAllBeersErrorMessage)
+    }
+  }, [isGetAllBeersSuccess, isGetAllBeersError])
+
+  const fetchMoreData = () => {
+    if (isFiltered) setBeers([])
+    setTimeout(() => {
+      dispatch(getAllBeersRequest({ page, per_page: 9 }))
+    }, 1500)
+  }
+
+  return (
+    <Box id='home'>
+      <TopBar setBeers={setBeers} setIsFiltered={setIsFiltered} />
+      <InfiniteScroll
+        dataLength={beers.length}
+        next={fetchMoreData}
+        hasMore={true}
+        loader={<Loading />}
+      >
+        <BeerList loading={loading} allBeers={beers} />
+      </InfiniteScroll>
+    </Box>
+  )
 }
 
 export default Home

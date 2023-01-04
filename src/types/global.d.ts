@@ -1,3 +1,5 @@
+import { ReactElement } from 'react'
+
 export {}
 declare global {
   interface BeerItem {
@@ -29,5 +31,11 @@ declare global {
     image: string
     name: string
     quantity: number
+  }
+
+  interface Routes {
+    id: number
+    path: string
+    element: ReactElement
   }
 }

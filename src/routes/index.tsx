@@ -1,30 +1,35 @@
-import {ReactElement} from 'react';
-import Home from '../views/home/index';
-import SingleBeer from '../views/singleBeer';
-import Cart from '../views/cart';
+import React, { useEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import { generateToken } from '../hooks/generateToken'
+import routesData from './data'
 
-interface Routes {
-    id: number;
-    path: string;
-    element: ReactElement;
+function AppRoutes() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    generateBearerToken()
+
+    const interval = setInterval(() => {
+      localStorage.removeItem('token')
+      navigate('/')
+      generateBearerToken()
+    }, 300000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const generateBearerToken = () => {
+    const generatedToken = generateToken()
+    localStorage.setItem('token', generatedToken)
+  }
+
+  return (
+    <Routes>
+      {routesData.map(({ id, path, element }) => {
+        return <Route path={path} element={element} key={id} />
+      })}
+    </Routes>
+  )
 }
 
-const routes: Routes[] = [
-    {
-        id: 1,
-        path: '/',
-        element: <Home />,
-    },
-    {
-        id: 2,
-        path: '/beers/:id',
-        element: <SingleBeer />
-    },
-    {
-        id: 3,
-        path: '/cart',
-        element: <Cart />
-    }
-]
-
-export default routes;
+export default AppRoutes

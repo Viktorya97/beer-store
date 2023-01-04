@@ -4,7 +4,9 @@ import {
   getAllBeersError,
   getAllBeersSuccess,
   getBeersByBrewedError,
-  getBeersByBrewedSuccess, getSimilarBeersError, getSimilarBeersSuccess,
+  getBeersByBrewedSuccess,
+  getSimilarBeersError,
+  getSimilarBeersSuccess,
   getSingleBeerError,
   getSingleBeerSuccess,
 } from './actionCreators'
@@ -12,8 +14,10 @@ import {
   BeerByBrewedAction,
   BeersAction,
   GET_ALL_BEERS_REQUEST,
-  GET_BEERS_BY_BREWED_REQUEST, GET_SIMILAR_BEERS_REQUEST,
-  GET_SINGLE_BEER_REQUEST, SimilarBeersAction,
+  GET_BEERS_BY_BREWED_REQUEST,
+  GET_SIMILAR_BEERS_REQUEST,
+  GET_SINGLE_BEER_REQUEST,
+  SimilarBeersAction,
   SingleBeerAction,
 } from './actionTypes'
 import axiosInstance from '../../config/axiosInstance'
@@ -35,7 +39,7 @@ function* getBeers({ payload }: BeersAction) {
       yield put(getAllBeersSuccess(response.data))
     }
   } catch (error: any) {
-    yield put(getAllBeersError(error.response.data.error))
+    yield put(getAllBeersError(error.response.data))
   }
 }
 
@@ -48,7 +52,7 @@ function* getSingleBeer({ payload }: SingleBeerAction) {
       yield put(getSingleBeerSuccess(response.data[0]))
     }
   } catch (error: any) {
-    yield put(getSingleBeerError(error.response.data.error))
+    yield put(getSingleBeerError(error.response.data))
   }
 }
 
@@ -59,24 +63,24 @@ function* getBeersByBrewed({ payload }: BeerByBrewedAction) {
       `${process.env.REACT_APP_PUNK_API_URL}?brewed_before=${brewed_before}&brewed_after=${brewed_after}`,
     )
     if (response && response.status === 200) {
-      yield put(getBeersByBrewedSuccess(response.data[0]))
+      yield put(getBeersByBrewedSuccess(response.data))
     }
   } catch (error: any) {
-    yield put(getBeersByBrewedError(error.response.data.error))
+    yield put(getBeersByBrewedError(error.response.data))
   }
 }
 
 function* getSimilarBeers({ payload }: SimilarBeersAction) {
   try {
-    const { abv_gt, abv_lt, ibu_gt, ibu_lt} = payload
+    const { abv_gt, abv_lt, ibu_gt, ibu_lt } = payload
     const response: getBeersType = yield axiosInstance.get(
       `${process.env.REACT_APP_PUNK_API_URL}?abv_gt=${abv_gt}&abv_lt=${abv_lt}&ibu_gt=${ibu_gt}&ibu_lt=${ibu_lt}`,
     )
     if (response && response.status === 200) {
-      yield put(getSimilarBeersSuccess(response.data[0]))
+      yield put(getSimilarBeersSuccess(response.data))
     }
   } catch (error: any) {
-    yield put(getSimilarBeersError(error.response.data.error))
+    yield put(getSimilarBeersError(error.response.data))
   }
 }
 

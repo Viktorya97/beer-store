@@ -1,15 +1,9 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Box, Grid } from '@mui/material'
-import CustomButton from '../../../components/button'
+import CustomButton from '../../components/button'
+import { useNavigate } from 'react-router-dom'
 
-interface ItemProps {
-  allBeers: BeerItem[]
-}
-
-function Item(props: ItemProps) {
-  const { allBeers } = props
-
+function SimilarBeers(similarItems: any) {
   const navigate = useNavigate()
 
   const handleClickBeer = (beerId: number) => {
@@ -17,11 +11,12 @@ function Item(props: ItemProps) {
   }
 
   return (
-    <>
-      {allBeers.length ? (
-        allBeers.map((item: BeerItem) => {
+    <Box className='similar-beers-box'>
+      <p className='title'>Similar products</p>
+      <Grid container spacing={{ xs: 2, md: 3 }} wrap='wrap'>
+        {similarItems?.similarItems?.map((item: BeerItem) => {
           return (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid item xs={12} sm={4} md={4} key={item.id}>
               <Box className='view-item-box'>
                 <Box className='beer-item'>
                   <img src={item.image_url} alt='beer' className='beer-image' />
@@ -40,12 +35,10 @@ function Item(props: ItemProps) {
               </Box>
             </Grid>
           )
-        })
-      ) : (
-        <Box className='no-data-text'>There are no products</Box>
-      )}
-    </>
+        })}
+      </Grid>
+    </Box>
   )
 }
 
-export default Item
+export default SimilarBeers

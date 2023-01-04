@@ -1,4 +1,19 @@
+@import "../../styles/variables";
+
 #cart {
+  padding: 40px 0;
+
+  .item-row {
+    &:not(:last-child) {
+      padding-bottom: 30px;
+      border-bottom: 1px solid $light-gray;
+    }
+
+    &:not(:first-child) {
+      padding-top: 30px;
+    }
+  }
+
   .image {
     max-width: 100px;
     width: 100%;
@@ -11,14 +26,18 @@
     font: normal 600 14px/19px Nunito Sans, sans-serif;
     text-transform: uppercase;
     color: #000000;
+    margin: 0;
   }
 
   .beer-taste {
     font: normal 600 12px/19px Nunito Sans, sans-serif;
     color: #CBB27C;
+    margin: 0;
   }
 
   .delete-icon {
+    border: 1px solid $main-color;
+    border-radius: 50%;
     color: #CBB27C;
   }
 
@@ -26,11 +45,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
+    border: 1px solid $main-color;
+    border-radius: 25px;
+    color: $main-color;
 
     .decrement-btn, .increment-btn {
       svg {
         color: #CBB27C;
       }
     }
+  }
+
+  .price {
+    color: $black;
+    font: normal 500 16px/24px Nunito Sans, sans-serif;
+  }
+
+  .no-data-text {
+    color: $black;
+    font: normal 500 16px/24px Nunito Sans, sans-serif;
+    text-align: center;
   }
 }

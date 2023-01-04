@@ -1,25 +1,33 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Item from './Item';
-import '../styles.scss';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import { Container } from '@mui/material'
+import Item from './Item'
+import '../styles.scss'
 
 interface BeerListProps {
-    allBeers: BeerItem[];
+  allBeers: BeerItem[]
+  loading: boolean
 }
 
 function BeerList(props: BeerListProps) {
-    const { allBeers } = props;
+  const { allBeers, loading } = props
 
-    return (
-        <Box id='beer-list'>
+  return (
+    <>
+      {!loading && (
+        <Container maxWidth='lg'>
+          <Box id='beer-list'>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Item allBeers={allBeers} />
-                </Grid>
+              <Grid container spacing={{ xs: 2, md: 3 }} wrap='wrap'>
+                <Item allBeers={allBeers} />
+              </Grid>
             </Box>
-        </Box>
-    );
+          </Box>
+        </Container>
+      )}
+    </>
+  )
 }
 
-export default BeerList;
+export default BeerList

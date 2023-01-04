@@ -48,6 +48,7 @@ export function getAllBeersSuccess(payload: {
 export function getAllBeersError(payload: {
   page: number
   per_page: number
+  message: string
 }): GetAllBeersErrorAction {
   return {
     type: GET_ALL_BEERS_ERROR,
@@ -69,7 +70,10 @@ export function getSingleBeerSuccess(payload: { id: number }): GetSingleBeerSucc
   }
 }
 
-export function getSingleBeerError(payload: { id: number }): GetSingleBeerErrorAction {
+export function getSingleBeerError(payload: {
+  id: number
+  message: string
+}): GetSingleBeerErrorAction {
   return {
     type: GET_SINGLE_BEER_ERROR,
     payload,
@@ -77,8 +81,8 @@ export function getSingleBeerError(payload: { id: number }): GetSingleBeerErrorA
 }
 
 export function getBeersByBrewedRequest(payload: {
-  brewed_before: Date,
-  brewed_after: Date,
+  brewed_before: Date | string
+  brewed_after: Date | string
 }): GetBeersByBrewedRequestAction {
   return {
     type: GET_BEERS_BY_BREWED_REQUEST,
@@ -87,8 +91,8 @@ export function getBeersByBrewedRequest(payload: {
 }
 
 export function getBeersByBrewedSuccess(payload: {
-  brewed_before: Date,
-  brewed_after: Date,
+  brewed_before: Date | string
+  brewed_after: Date | string
 }): GetBeersByBrewedSuccessAction {
   return {
     type: GET_BEERS_BY_BREWED_SUCCESS,
@@ -97,8 +101,9 @@ export function getBeersByBrewedSuccess(payload: {
 }
 
 export function getBeersByBrewedError(payload: {
-  brewed_before: Date,
-  brewed_after: Date,
+  brewed_before: Date | string
+  brewed_after: Date | string
+  message: string
 }): GetBeersByBrewedErrorAction {
   return {
     type: GET_BEERS_BY_BREWED_ERROR,
@@ -107,10 +112,10 @@ export function getBeersByBrewedError(payload: {
 }
 
 export function getSimilarBeersRequest(payload: {
-  abv_gt: number
   abv_lt: number
-  ibu_gt: number
   ibu_lt: number
+  abv_gt: number
+  ibu_gt: number
 }): GetSimilarBeersRequestAction {
   return {
     type: GET_SIMILAR_BEERS_REQUEST,
@@ -135,6 +140,7 @@ export function getSimilarBeersError(payload: {
   abv_lt: number
   ibu_gt: number
   ibu_lt: number
+  message: string
 }): GetSimilarBeersErrorAction {
   return {
     type: GET_SIMILAR_BEERS_ERROR,

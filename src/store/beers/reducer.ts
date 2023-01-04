@@ -13,7 +13,8 @@ import {
   GET_SINGLE_BEER_SUCCESS,
   GET_SIMILAR_BEERS_REQUEST,
   GET_SIMILAR_BEERS_SUCCESS,
-  GET_SIMILAR_BEERS_ERROR, SimilarBeersAction,
+  GET_SIMILAR_BEERS_ERROR,
+  SimilarBeersAction,
 } from './actionTypes'
 
 export interface BeersState {
@@ -29,10 +30,10 @@ export interface BeersState {
   isGetFilteredByBrewedSuccess: boolean
   isGetFilteredByBrewedError: boolean
   getFilteredByBrewedErrorMessage: string
-  similarBeers: {},
-  isGetSimilarBeersSuccess: boolean,
-  isGetSimilarBeersError: boolean,
-  getSimilarBeersErrorMessage: string,
+  similarBeers: any
+  isGetSimilarBeersSuccess: boolean
+  isGetSimilarBeersError: boolean
+  getSimilarBeersErrorMessage: string
 }
 
 const initialState: BeersState = {
@@ -48,7 +49,7 @@ const initialState: BeersState = {
   isGetFilteredByBrewedSuccess: false,
   isGetFilteredByBrewedError: false,
   getFilteredByBrewedErrorMessage: '',
-  similarBeers: {},
+  similarBeers: [],
   isGetSimilarBeersSuccess: false,
   isGetSimilarBeersError: false,
   getSimilarBeersErrorMessage: '',
@@ -56,7 +57,7 @@ const initialState: BeersState = {
 
 export default function beersReducer(
   state: BeersState = initialState,
-  action: BeersAction | SingleBeerAction | BeerByBrewedAction | SimilarBeersAction, // TODO ?
+  action: BeersAction | SingleBeerAction | BeerByBrewedAction | SimilarBeersAction,
 ): BeersState {
   switch (action.type) {
     case GET_ALL_BEERS_REQUEST:
@@ -77,7 +78,7 @@ export default function beersReducer(
       return {
         ...state,
         isGetAllBeersError: true,
-        getAllBeersErrorMessage: '', // TODO get errorMessage
+        getAllBeersErrorMessage: action.payload.message,
       }
     case GET_SINGLE_BEER_REQUEST:
       return {
@@ -97,7 +98,7 @@ export default function beersReducer(
       return {
         ...state,
         isGetSingleBeerError: true,
-        getSingleBeerErrorMessage: '', // TODO get errorMessage
+        getSingleBeerErrorMessage: action.payload.message,
       }
     case GET_BEERS_BY_BREWED_REQUEST:
       return {
@@ -117,12 +118,12 @@ export default function beersReducer(
       return {
         ...state,
         isGetFilteredByBrewedError: true,
-        getFilteredByBrewedErrorMessage: '',
+        getFilteredByBrewedErrorMessage: action.payload.message,
       }
     case GET_SIMILAR_BEERS_REQUEST:
       return {
         ...state,
-        similarBeers: {},
+        similarBeers: [],
         isGetSimilarBeersSuccess: false,
         isGetSimilarBeersError: false,
         getSimilarBeersErrorMessage: '',
@@ -137,7 +138,7 @@ export default function beersReducer(
       return {
         ...state,
         isGetSimilarBeersError: true,
-        getSimilarBeersErrorMessage: '',
+        getSimilarBeersErrorMessage: action.payload.message,
       }
 
     default: {
